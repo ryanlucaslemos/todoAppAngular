@@ -1,6 +1,6 @@
-<div class="form-container">
-  <input type="text" [formControl]="name" />
-  <button class="btn btn-primary" (click)="addToList()">
-    Adicionar a lista
-  </button>
+<div class="flex-container form-container">
+  <form [formGroup]="form" (ngSubmit)="addToList()">
+    <input type="text" formControlName="name" />
+    <button class="btn btn-primary" type="submit">Adicionar a lista</button>
+  </form>
 </div>
