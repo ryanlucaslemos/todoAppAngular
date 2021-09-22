@@ -1,7 +1,7 @@
-<div class="todo-flex-container">
+<div class="flex-container flex-center">
   <div class="todo-box">
     <div *ngFor="let todoItem of todoList$ | async" class="todo-item">
-      <div class="todo-info">
+      <div class="flex-container">
         <input
           type="checkbox"
           (change)="toggleFinished(todoItem.id)"
