@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+.btn-primary {
+  background-color: rgb(138, 19, 138);
+  color: #fff;
+}
+.btn {
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+.btn-danger-sm {
+  background-color: rgb(187, 15, 52);
+  color: #fff;
+}
+.flex-container {
+  display: flex;
+}
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,24 @@
+<div class="todo-flex-container">
+  <div class="todo-box">
+    <div *ngFor="let todoItem of todoList$ | async" class="todo-item">
+      <div class="todo-info">
+        <input
+          type="checkbox"
+          (change)="toggleFinished(todoItem.id)"
+          [checked]="todoItem.finished"
+          id="finished{{ todoItem.id }}"
+        />
+        <label
+          class="{{ todoItem.finished ? 'finished-text' : '' }}"
+          for="finished{{ todoItem.id }}"
+        >
+          {{ todoItem.todoAction }}
+        </label>
+      </div>
+
+      <button class="btn btn-danger-sm" (click)="removeItem(todoItem.id)">
+        Remover
+      </button>
+    </div>
+  </div>
+</div>
