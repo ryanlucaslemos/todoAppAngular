@@ -8,19 +8,28 @@ import { StorageManagerService } from '../storage-manager/storage-manager.servic
 })
 export class TodoService {
   private todoListSubject = new BehaviorSubject<TodoItem[]>([]);
+  private filteredListSubject = new BehaviorSubject<TodoItem[]>([]);
+  private filter = new BehaviorSubject<string>('');
   private readonly storageName = 'todoList';
 
   todoList$ = this.todoListSubject.asObservable();
+  filteredList$ = this.filteredListSubject.asObservable();
 
   get todoList() {
     return this.todoListSubject.getValue();
+  }
+
+  get filteredList() {
+    return this.filteredListSubject.getValue();
   }
 
   constructor(private storageService: StorageManagerService) {
     const storageList = this.storageService.getFromStorage<TodoItem[]>(
       this.storageName
     );
-    if (storageList != null) this.updateListState(storageList);
+    if (storageList != null) {
+      this.updateListState(storageList);
+    }
   }
 
   addTodo(description: string) {
@@ -29,6 +38,7 @@ export class TodoService {
     const newList = [
       ...this.todoList,
       {
+        createdAt: new Date(),
         todoAction: description,
         finished: false,
         id: tamanhoLista > 0 ? this.todoList[tamanhoLista - 1].id + 1 : 0,
@@ -52,8 +62,25 @@ export class TodoService {
     this.updateListState(newList);
   }
 
+  applyFilter(filter: string) {
+    let list: TodoItem[];
+    switch (filter) {
+      case 'done':
+        list = this.todoList.filter((t) => t.finished);
+        break;
+      case 'undone':
+        list = this.todoList.filter((t) => !t.finished);
+        break;
+      default:
+        list = this.todoList;
+    }
+    this.filter.next(filter);
+    this.filteredListSubject.next(list);
+  }
+
   private updateListState(newList: TodoItem[]) {
     this.todoListSubject.next(newList);
     this.storageService.saveOnStorage(this.storageName, newList);
+    this.applyFilter(this.filter.getValue());
   }
 }

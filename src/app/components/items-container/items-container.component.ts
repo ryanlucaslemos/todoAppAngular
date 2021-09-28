@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { TodoItem } from 'src/app/models/todoitem.model';
 import { TodoService } from 'src/app/services/todo/todo.service';
@@ -10,9 +11,10 @@ import { TodoService } from 'src/app/services/todo/todo.service';
 })
 export class ItemsContainerComponent implements OnInit {
   todoList$: Observable<TodoItem[]>;
+  filter: FormControl = new FormControl('all');
 
   constructor(private todoService: TodoService) {
-    this.todoList$ = this.todoService.todoList$;
+    this.todoList$ = this.todoService.filteredList$;
   }
 
   ngOnInit(): void {}
@@ -23,5 +25,9 @@ export class ItemsContainerComponent implements OnInit {
 
   removeItem(index: number) {
     this.todoService.removeItem(index);
+  }
+
+  applyFilter() {
+    this.todoService.applyFilter(this.filter.value);
   }
 }

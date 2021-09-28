@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TodoService } from 'src/app/services/todo/todo.service';
 
 @Component({
@@ -8,11 +13,17 @@ import { TodoService } from 'src/app/services/todo/todo.service';
   styleUrls: ['./todo-form.component.css'],
 })
 export class TodoFormComponent implements OnInit {
-  constructor(private todoService: TodoService) {}
+  constructor(
+    private todoService: TodoService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {}
-  form = new FormGroup({
-    name: new FormControl(''),
+  form = this.formBuilder.group({
+    name: [
+      '',
+      Validators.compose([Validators.required, Validators.minLength(1)]),
+    ],
   });
 
   addToList() {

@@ -15,10 +15,50 @@
           {{ todoItem.todoAction }}
         </label>
       </div>
-
-      <button class="btn btn-danger-sm" (click)="removeItem(todoItem.id)">
-        Remover
-      </button>
+      <div class="flex-container" style="align-items: flex-end">
+        <small style="margin-right: 10px; font-size: 12px"
+          >Criado em: {{ todoItem.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}
+        </small>
+        <button class="btn btn-danger-sm" (click)="removeItem(todoItem.id)">
+          Remover
+        </button>
+      </div>
     </div>
+  </div>
+</div>
+<div class="flex-container flex-center" style="margin-top: 20px">
+  <div class="filter">
+    <input
+      type="radio"
+      id="all"
+      name="filter"
+      value="all"
+      checked
+      [formControl]="filter"
+      (change)="applyFilter()"
+    />
+    <label for="all">Todos</label>
+  </div>
+  <div class="filter">
+    <input
+      type="radio"
+      id="done"
+      name="filter"
+      value="done"
+      [formControl]="filter"
+      (change)="applyFilter()"
+    />
+    <label for="done">Finalizados</label>
+  </div>
+  <div class="filter">
+    <input
+      type="radio"
+      id="undone"
+      name="filter"
+      value="undone"
+      [formControl]="filter"
+      (change)="applyFilter()"
+    />
+    <label for="undone">Não finalizados</label>
   </div>
 </div>
