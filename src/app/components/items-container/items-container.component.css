@@ -17,6 +17,15 @@
   padding: 5px;
 }
 
+.hidden-input {
+  min-width: 200px;
+  padding-right: 8px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
 .finished-text {
   text-decoration: line-through;
 }
@@ -27,4 +36,8 @@
 
 .filter {
   margin-right: 15px;
+}
+
+.hidden-container {
+  margin-left: 5px;
 }

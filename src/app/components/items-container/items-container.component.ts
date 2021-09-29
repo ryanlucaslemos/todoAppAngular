@@ -30,4 +30,34 @@ export class ItemsContainerComponent implements OnInit {
   applyFilter() {
     this.todoService.applyFilter(this.filter.value);
   }
+
+  verifyEnterPressed(
+    event: any,
+    el: any,
+    label: any,
+    checkbox: any,
+    id: number
+  ) {
+    if (event.key === 'Enter') this.hideInput(el, label, checkbox, id);
+  }
+
+  showInput(el: any, label: any, checkbox: any) {
+    el.hidden = false;
+    el.style.width = `${el.value.length}ch`;
+    el.focus();
+    label.hidden = true;
+    checkbox.hidden = true;
+  }
+
+  hideInput(el: any, label: any, checkbox: any, id: number) {
+    if (el.value && el.value !== '') {
+      this.todoService.updateItem(id, el.value);
+    } else {
+      el.value = label.innerHTML;
+    }
+
+    el.hidden = true;
+    label.hidden = false;
+    checkbox.hidden = false;
+  }
 }

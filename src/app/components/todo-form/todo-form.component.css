@@ -1,14 +1,3 @@
-input {
-  border-radius: 0.25rem;
-  border: 1px solid rgba(121, 121, 121, 0.775);
-  padding: 5px;
-  margin-right: 5px;
-}
-input:focus {
-  border-color: rgb(138, 19, 138);
-  box-shadow: 0 0 5px rgba(138, 19, 138, 0.412);
-  outline: none !important;
-}
 .btn-primary {
   padding: 7px 10px;
 }

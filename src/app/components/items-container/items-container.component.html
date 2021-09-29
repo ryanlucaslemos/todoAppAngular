@@ -7,13 +7,28 @@
           (change)="toggleFinished(todoItem.id)"
           [checked]="todoItem.finished"
           id="finished{{ todoItem.id }}"
+          #checkbox
         />
-        <label
-          class="{{ todoItem.finished ? 'finished-text' : '' }}"
-          for="finished{{ todoItem.id }}"
-        >
-          {{ todoItem.todoAction }}
-        </label>
+        <div class="hidden-container">
+          <input
+            type="text"
+            (keydown)="
+              verifyEnterPressed($event, input, label, checkbox, todoItem.id)
+            "
+            (focusout)="hideInput(input, label, checkbox, todoItem.id)"
+            class="hidden-input"
+            #input
+            hidden
+            [value]="todoItem.todoAction"
+          />
+          <label
+            class="{{ todoItem.finished ? 'finished-text' : '' }}"
+            #label
+            (dblclick)="showInput(input, label, checkbox)"
+          >
+            {{ todoItem.todoAction }}
+          </label>
+        </div>
       </div>
       <div class="flex-container" style="align-items: flex-end">
         <small style="margin-right: 10px; font-size: 12px"
@@ -26,7 +41,11 @@
     </div>
   </div>
 </div>
-<div class="flex-container flex-center" style="margin-top: 20px">
+<div
+  *ngIf="(todoList$ | async)?.length"
+  class="flex-container flex-center"
+  style="margin-top: 20px"
+>
   <div class="filter">
     <input
       type="radio"

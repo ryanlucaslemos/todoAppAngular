@@ -7,8 +7,35 @@ import { StorageManagerService } from '../storage-manager/storage-manager.servic
   providedIn: 'root',
 })
 export class TodoService {
-  private todoListSubject = new BehaviorSubject<TodoItem[]>([]);
-  private filteredListSubject = new BehaviorSubject<TodoItem[]>([]);
+  readonly baseTodos: TodoItem[] = [
+    {
+      id: 1,
+      todoAction: 'Adicione um novo ToDo digitando abaixo.',
+      createdAt: new Date(),
+      finished: false,
+    },
+    {
+      id: 2,
+      todoAction: 'Filtre os todos clicando nos filtros abaixo.',
+      createdAt: new Date(),
+      finished: false,
+    },
+    {
+      id: 3,
+      todoAction: 'Edite um todo clicando sobre ele.',
+      createdAt: new Date(),
+      finished: false,
+    },
+    {
+      id: 4,
+      todoAction:
+        'Marque um todo como finalizado clicando na caixa ao lado do seu nome.',
+      createdAt: new Date(),
+      finished: true,
+    },
+  ];
+  private todoListSubject = new BehaviorSubject<TodoItem[]>(this.baseTodos);
+  private filteredListSubject = new BehaviorSubject<TodoItem[]>(this.baseTodos);
   private filter = new BehaviorSubject<string>('');
   private readonly storageName = 'todoList';
 
@@ -27,7 +54,7 @@ export class TodoService {
     const storageList = this.storageService.getFromStorage<TodoItem[]>(
       this.storageName
     );
-    if (storageList != null) {
+    if (storageList != null && storageList.length > 0) {
       this.updateListState(storageList);
     }
   }
@@ -59,6 +86,15 @@ export class TodoService {
 
   removeItem(index: number) {
     const newList = this.todoList.filter((item) => item.id !== index);
+    this.updateListState(newList);
+  }
+
+  updateItem(index: number, newValue: string) {
+    const newList = this.todoList.map((item) => {
+      if (item.id === index) item.todoAction = newValue;
+      return item;
+    });
+
     this.updateListState(newList);
   }
 

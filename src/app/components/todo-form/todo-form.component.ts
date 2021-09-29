@@ -27,6 +27,7 @@ export class TodoFormComponent implements OnInit {
   });
 
   addToList() {
+    if (!this.form.controls.name.valid) return;
     this.todoService.addTodo(this.form.controls.name.value);
     this.form.controls.name.setValue('');
   }
