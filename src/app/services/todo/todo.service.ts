@@ -10,28 +10,28 @@ export class TodoService {
   readonly baseTodos: TodoItem[] = [
     {
       id: 1,
-      todoAction: 'Adicione um novo ToDo digitando abaixo.',
+      todoAction: 'Filtre os to dos clicando nos filtros abaixo.',
       createdAt: new Date(),
       finished: false,
     },
     {
       id: 2,
-      todoAction: 'Filtre os todos clicando nos filtros abaixo.',
+      todoAction: 'Edite um to do clicando sobre seu texto.',
       createdAt: new Date(),
       finished: false,
     },
     {
       id: 3,
-      todoAction: 'Edite um todo clicando sobre ele.',
+      todoAction:
+        'Marque um to do como finalizado clicando na caixa ao lado do seu nome.',
       createdAt: new Date(),
-      finished: false,
+      finished: true,
     },
     {
       id: 4,
-      todoAction:
-        'Marque um todo como finalizado clicando na caixa ao lado do seu nome.',
+      todoAction: 'Adicione um novo to do digitando-o abaixo.',
       createdAt: new Date(),
-      finished: true,
+      finished: false,
     },
   ];
   private todoListSubject = new BehaviorSubject<TodoItem[]>(this.baseTodos);

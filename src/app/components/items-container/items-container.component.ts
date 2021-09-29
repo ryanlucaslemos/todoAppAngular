@@ -53,7 +53,7 @@ export class ItemsContainerComponent implements OnInit {
     if (el.value && el.value !== '') {
       this.todoService.updateItem(id, el.value);
     } else {
-      el.value = label.innerHTML;
+      el.value = label.textContent;
     }
 
     el.hidden = true;
