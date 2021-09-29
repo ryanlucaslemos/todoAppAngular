@@ -9,5 +9,5 @@ import { TodoItem } from './models/todoitem.model';
 })
 export class AppComponent implements OnInit {
   ngOnInit(): void {}
-  title = 'todo-angular';
+  title = 'Todo Angular';
 }
